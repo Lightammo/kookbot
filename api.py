@@ -18,3 +18,11 @@ class Channel:
     UPDATE = "/api/v3/channel/update"
     DELETE = "/api/v3/channel/delete"
     USERLIST = "/api/v3/channel/user-list"
+
+
+class Message:
+    CREATE = "/api/v3/message/create"  # POST
+
+
+class User:
+    ME = "/api/v3/user/me"  # GET

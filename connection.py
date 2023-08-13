@@ -12,7 +12,7 @@ import requests
 from websockets.sync.client import connect
 
 from driver import Driver
-from api import ENDPOINT, GATEWAY, Guild, Channel
+from api import ENDPOINT, GATEWAY, Guild, Channel, Message
 from common.globals.log import logger
 from configuration import BOT_TOKEN, ENABLE_COMPRESS
 from event import Signaling
@@ -37,7 +37,7 @@ def requestor(method, url, headers, **kwargs):
     except Exception as e:
         logging.warning(f"api: {method ,url}, {e}")
     if result.get("code", -1) != 0:
-        raise RuntimeError(f"url:{url}, param:{kwargs}")
+        ...
 
     return result
 
@@ -199,6 +199,7 @@ class RecvConsumer(Driver):
                 global SESSION_NUM
                 SESSION_NUM = self.sign.session_num
             event = self.sign.to_event()
+
             logger.info(event)
 
 
