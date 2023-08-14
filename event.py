@@ -1,9 +1,9 @@
 import requests
 import json
 from urllib.parse import urljoin
+from dataclasses import dataclass, asdict
 
-
-from enum import Enum
+from enum import Enum, IntEnum, StrEnum
 from dataclasses import dataclass
 from setting.configuration import BOT_TOKEN
 from api import ENDPOINT, Message, User
@@ -11,7 +11,8 @@ from api import ENDPOINT, Message, User
 ID = None
 
 
-class Sign:
+class SignalType(IntEnum):
+    """"""
     EVENT = 0
     HELLO = 1
     PING = 2
@@ -40,7 +41,7 @@ class Signaling:
         Returns:
             typle: sign_type, sign_data
         """
-        if self.sign == Sign.EVENT:
+        if self.sign == SignalType.EVENT:
             event = Event()
             event.load(self.data)
             # 应过滤自己的发言
@@ -51,10 +52,10 @@ class Signaling:
                 Action().echo(event.target_id, event.content)
             return f"[Event]This is a event sender:{event.target_id}, msg:{event.content}"
 
-        if self.sign == Sign.HELLO:
+        if self.sign == SignalType.HELLO:
             return "[Websocket] bot connectted."
 
-        if self.sign == Sign.PONG:
+        if self.sign == SignalType.PONG:
             return "[heartbeats] pong"
 
         """ 重连未装载
@@ -63,17 +64,17 @@ class Signaling:
         3 清空本地消息队列.
         """
 
-        if self.sign == Sign.RESUME:
+        if self.sign == SignalType.RESUME:
             return "[Error Msg] RESUME"
 
-        if self.sign == Sign.RECONNECT:
+        if self.sign == SignalType.RECONNECT:
             return "[Error Msg] RECONNECT"
 
-        if self.sign == Sign.RESUME_ACK:
+        if self.sign == SignalType.RESUME_ACK:
             return "[Error Msg] RESUME_ACK"
 
 
-class EventType:
+class EventType(IntEnum):
     WORDS = 1  # 文字消息,
     PICTURE = 2  # 图片消息，
     VIDEO = 3  # 视频消息，
