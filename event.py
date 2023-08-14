@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 
 from enum import Enum
 from dataclasses import dataclass
-from configuration import BOT_TOKEN
+from setting.configuration import BOT_TOKEN
 from api import ENDPOINT, Message, User
 
 ID = None

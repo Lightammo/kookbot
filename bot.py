@@ -1,6 +1,6 @@
 
 
-from configuration import BOT_ID, BOT_NAME, BOT_TOKEN
+from setting.configuration import BOT_ID, BOT_NAME, BOT_TOKEN
 from connection import (
     Connection
 )

@@ -14,7 +14,8 @@ from websockets.sync.client import connect
 from driver import Driver
 from api import ENDPOINT, GATEWAY, Guild, Channel, Message
 from common.globals.log import logger
-from configuration import BOT_TOKEN, ENABLE_COMPRESS
+from setting.configuration import BOT_TOKEN
+from setting.setting import ENABLE_COMPRESS
 from event import Signaling
 from utils import bytes_to_str
 

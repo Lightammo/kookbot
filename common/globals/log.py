@@ -1,4 +1,4 @@
 from loguru import logger
-logger.add("log/file.log")
+logger.add("logs/file.log")
 
 logger = logger
