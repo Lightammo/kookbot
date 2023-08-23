@@ -196,7 +196,7 @@ class RecvConsumer(Driver):
         while self.on_consume:
             sign = ReceiveQueue.get()
             self.sign.load(sign)
-            if self.sign.session_num:
+            if self.sign.session_num is not None:
                 global SESSION_NUM
                 SESSION_NUM = self.sign.session_num
             event = self.sign.to_event()

@@ -26,3 +26,11 @@ class Message:
 
 class User:
     ME = "/api/v3/user/me"  # GET
+
+
+class MayDiffCls:
+    def __init__(self):
+        self.token = ""
+
+    def config_token(self, token):
+        self.token = token

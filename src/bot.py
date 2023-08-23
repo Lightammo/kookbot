@@ -1,6 +1,9 @@
 
 import httpx
 from urllib.parse import urljoin
+
+
+from common.globals.log import logger
 from api import ENDPOINT, User
 from setting.configuration import BOT_ID, BOT_NAME, BOT_TOKEN
 from connection import (
@@ -31,6 +34,7 @@ class Bot:
         headers = {"Authorization": f"Bot {self.__token}"}
         result = httpx.get(urljoin(ENDPOINT, User.ME), headers=headers)
         result = result.json()
+        logger.info(result)
         self.__bot_id = result["data"]["id"]
         self.__bot_name = result["data"]["username"]
 

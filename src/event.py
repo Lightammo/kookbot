@@ -128,8 +128,8 @@ def requestor(method, url, headers, **kwargs):
         # logging.warning(f"api: {method ,url}, {e}")
         ...
     if result.get("code", -1) != 0:
-        raise RuntimeError(f"url:{url}, param:{kwargs}")
-
+        # raise RuntimeError(f"url:{url}, param:{kwargs}")
+        ...
     return result
 
 
