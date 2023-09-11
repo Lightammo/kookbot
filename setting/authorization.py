@@ -1,15 +1,40 @@
+import os
 from abc import ABCMeta, abstractmethod
 from datetime import datetime, timedelta
 
 
-class TokenFetcher(metaclass=ABCMeta):
+class BaseTokenFetcher(metaclass=ABCMeta):
     @abstractmethod
     def get_token(self):
         ...
 
 
-class Token:
-    def __init__(self, name, token_fetcher: TokenFetcher,  expired_limit=timedelta(days=1)):
+class BaseToken(metaclass=ABCMeta):
+    @abstractmethod
+    def __init__(self, name):
+        ...
+
+    @property
+    @abstractmethod
+    def token(self):
+        ...
+
+    @token.setter
+    @abstractmethod
+    def token(self):
+        ...
+
+
+class TokenFetcher(BaseTokenFetcher):
+    def __init__(self):
+        ...
+
+    def get_token(self):
+        return os.getenv("BOT_TOKEN", "")
+
+
+class Token(BaseToken):
+    def __init__(self, name, token_fetcher: BaseTokenFetcher,  expired_limit=timedelta(days=1)):
         """_summary_
 
         Args:
@@ -21,7 +46,7 @@ class Token:
         self.__expired_limit = expired_limit
 
         self.token_fetcher = token_fetcher
-        self.__token = ""
+        self.__token = self.token_fetcher.get_token()
         self.__expired_time: datetime = None
 
     def info(self):
@@ -47,3 +72,9 @@ class Token:
         if datetime.now() - self.__expired_time >= self.__expired_limit:
             return True
         return False
+
+
+if __name__ == "__main__":
+
+    t = Token(name="bot_token", token_fetcher=TokenFetcher())
+    print(t.token)
